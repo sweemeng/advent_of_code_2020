@@ -24,6 +24,7 @@ class Machine(object):
 
 def runner(codes):
     logs = []
+    # on my computer, when not set data=[]. data attribute will not be empty. 
     machine = Machine(data=[])
     machine.load_code(codes)
 
