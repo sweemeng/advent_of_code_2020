@@ -28,14 +28,9 @@ class Ship:
         amount = amount / 90
         amount = int(amount)
         x, y = self.waypoint
-        if x!=0:
-            d_x = abs(x) / x
-        d_x = 1
-        if y!=0:
-            d_y = abs(y) / y
-        d_y = 1
         direction = self.headings_waypoint
-        idx = direction.index((d_x, d_y))
+        # We don't care we always start at top left whenever we turn
+        idx = 0
         
         while amount > 0:
             x,y = y,x
