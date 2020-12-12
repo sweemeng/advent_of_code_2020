@@ -45,7 +45,6 @@ class Ship:
                  idx -= 1
             amount = amount - 1
         dx,dy = direction[idx]
-        print(x,y, dx, dy)
         return x*dx, y*dy
             
     
