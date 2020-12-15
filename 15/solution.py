@@ -30,7 +30,7 @@ def main():
     series.close()
     series = generator([9,12,1,4,17,0,18])
     answer_2 = 0
-    for j in range(2020):
+    for j in range(30000000):
         answer_2 = next(series)
 
 if __name__ == "__main__":
