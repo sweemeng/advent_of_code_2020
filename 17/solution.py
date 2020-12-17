@@ -1,9 +1,6 @@
 from itertools import product
 import copy
 
-neighbor_3d = [p for p in product([-1,0,1], repeat=3) if p != (0,0,0)]
-neighbor_4d = [p for p in product([-1,0,1], repeat=4) if p != (0,0,0,0)]
-
 
 def get_next_point(tuples):
     x,dx = tuples
