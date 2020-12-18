@@ -1,54 +1,13 @@
 add = lambda x,y: x+y
 mul = lambda x,y: x*y 
 ops_func = {"+": add, "*": mul}
+ops_tokens = ["*","+"]
 
-def calculator_one(formula):
+
+def stack_generator(formula, equal_ops=False):
     ops = []
     nums = []
-    ops_token = {"+": add, "*": mul}
-    # list have no push now. i decide head is index 0. Pop pop from the end
     for c in formula:
-        print(c, nums, ops)
-        if c.isdigit():
-            if not nums:
-                nums.insert(0, c)
-            else:
-                if nums[0] == "(":
-                    nums.insert(0, c)
-                else:
-                    op = ops.pop(0)
-                    x = int(c)
-                    y = int(nums.pop(0))
-                    v = ops_token[op](x,y)
-                    nums.insert(0,v)
-        elif c == "(":
-            nums.insert(0,c)
-        elif c == ")":
-            y = int(nums.pop(0))
-            nums.pop(0) # remove (
-            if ops:
-                if nums[0] != "(":
-                    op = ops.pop(0) 
-                    x = int(nums.pop(0))
-                    v = ops_token[op](x,y)
-                    nums.insert(0,v)
-                else:
-                    nums.insert(0, y)
-            else:
-                nums.insert(0,y)
-        elif c in ["+","*"]:
-            
-            ops.insert(0,c)
-
-    return nums[0]
-            
-
-def stack_generator(formula):
-    ops = []
-    nums = []
-    ops_tokens = ["*","+"]
-    for c in formula:
-        print(c, formula, ops, nums)
         if c.isdigit():
             nums.append(int(c))
         elif c in ops_tokens:
@@ -59,14 +18,19 @@ def stack_generator(formula):
                 elif ops[0] == "(":
                     ops.insert(0,c)
                 else:
-                    pres_1 = ops_tokens.index(c)
-                    pres_2 = ops_tokens.index(ops[0])
-                    if pres_1 > pres_2:
-                        ops.insert(0, c)
+                    if not equal_ops:
+                        pres_1 = ops_tokens.index(c)
+                        pres_2 = ops_tokens.index(ops[0])
+                        if pres_1 > pres_2:
+                            ops.insert(0, c)
+                        else:
+                            temp = ops.pop(0)
+                            nums.append(temp)
+                            ops.insert(0, c)
                     else:
                         temp = ops.pop(0)
                         nums.append(temp)
-                        ops.insert(0, c)
+                        ops.insert(0,c)
             else:
                 ops.insert(0, c)
         elif c == "(":
@@ -84,7 +48,6 @@ def stack_generator(formula):
             
 
 def stack_calculator(stack):
-    ops_tokens = ["*","+"]
     result_stack = []
     for i in stack:
         if i in ops_tokens:
@@ -103,8 +66,8 @@ def main():
 
     count = 0
     for i in data:
-        result = calculator_one(i)
-        count += result
+        stack = stack_generator(i, equal_ops=True)
+        count += stack_calculator(stack)
     print(f"result one: {count}")
 
     count_2 = 0

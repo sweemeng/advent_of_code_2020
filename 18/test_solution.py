@@ -11,7 +11,9 @@ import pytest
         ("((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2", 13632),
 ])
 def test_first_calc(formula, expected):
-    result = solution.calculator_one(formula)
+    stack = solution.stack_generator(formula, equal_ops=True)
+    result = solution.stack_calculator(stack)
+
     assert result == expected
 
 
