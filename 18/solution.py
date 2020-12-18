@@ -4,6 +4,7 @@ ops_func = {"+": add, "*": mul}
 ops_tokens = ["*","+"]
 
 
+# equal_ops can be just a dict of operation with precedent score
 def stack_generator(formula, equal_ops=False):
     ops = []
     nums = []
